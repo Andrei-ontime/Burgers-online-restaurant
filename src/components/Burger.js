@@ -16,7 +16,11 @@ class burger extends React.Component {
             <span className='price'>{price} ₽</span>
           </h3>
           <p>{desc}</p>
-          <button className='button-order' disabled={!isAvailable}>
+          <button
+            className='button-order'
+            disabled={!isAvailable}
+            onClick={() => this.props.addToOrder(this.props.index)}
+          >
             {isAvailable ? 'Заказать' : 'Временно нет'}
           </button>
         </div>
