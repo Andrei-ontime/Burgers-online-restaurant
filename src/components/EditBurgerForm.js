@@ -43,6 +43,9 @@ class EditBurgerForm extends React.Component {
           type='text'
           value={this.props.burger.image}
         />
+        <button onClick={() => this.props.deleteBurger(this.props.index)}>
+          Удалить из меню
+        </button>
       </div>
     );
   }

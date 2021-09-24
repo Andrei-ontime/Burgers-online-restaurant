@@ -52,15 +52,33 @@ class App extends React.Component {
     this.setState({ burgers });
   };
 
+  deleteBurger = (key) => {
+    //1. Делаем копию обьекта state
+    const burgers = { ...this.state.burgers };
+    //2. Удаляем burger
+    burgers[key] = null;
+    //3.Записать наш новый обьект burgers в state
+    this.setState({ burgers });
+  };
+
   loadSampleBurgers = () => {
     this.setState({ burgers: sampleBurges });
   };
 
   addToOrder = (key) => {
-    //.1Делаем копию обьекта state
+    //.1 Делаем копию обьекта state
     const order = { ...this.state.order };
     //.2 Добавить ключ к заказу со знач-ем 1, либо обновить текущее знач-ие
     order[key] = order[key] + 1 || 1;
+    //3. Записать наш новый обьект order в state
+    this.setState({ order });
+  };
+
+  deleteFromOrder = (key) => {
+    //.1 Делаем копию обьекта state
+    const order = { ...this.state.order };
+    //2. Удаляем бургер
+    delete order[key];
     //3. Записать наш новый обьект order в state
     this.setState({ order });
   };
@@ -83,12 +101,17 @@ class App extends React.Component {
             })}
           </ul>
         </div>
-        <Order burgers={this.state.burgers} order={this.state.order} />
+        <Order
+          deleteFromOrder={this.deleteFromOrder}
+          burgers={this.state.burgers}
+          order={this.state.order}
+        />
         <MenuAdmin
           addBurger={this.addBurger}
           loadSampleBurgers={this.loadSampleBurgers}
           burgers={this.state.burgers}
           updateBurger={this.updateBurger}
+          deleteBurger={this.deleteBurger}
         />
       </div>
     );
