@@ -6,6 +6,8 @@ import MenuAdmin from './MenuAdmin';
 import Burger from './Burger';
 import sampleBurges from '../sample-burgers';
 import base from '../base';
+import firebase from 'firebase/app';
+import SignIn from './auth/SignIn';
 
 class App extends React.Component {
   static propTypes = {
@@ -88,37 +90,45 @@ class App extends React.Component {
     this.setState({ order });
   };
 
+  handleLogOut = async () => {
+    await firebase.auth().signOut();
+    window.location.reload();
+  };
+
   render() {
     return (
-      <div className='burger-paradise'>
-        <div className='menu'>
-          <Header title='Very Hot Burger' amount={10} hot={true} />
-          <ul className='burgers'>
-            {Object.keys(this.state.burgers).map((key) => {
-              return (
-                <Burger
-                  key={key}
-                  index={key}
-                  addToOrder={this.addToOrder}
-                  details={this.state.burgers[key]}
-                />
-              );
-            })}
-          </ul>
+      <SignIn>
+        <div className='burger-paradise'>
+          <div className='menu'>
+            <Header title='Very Hot Burger' amount={10} hot={true} />
+            <ul className='burgers'>
+              {Object.keys(this.state.burgers).map((key) => {
+                return (
+                  <Burger
+                    key={key}
+                    index={key}
+                    addToOrder={this.addToOrder}
+                    details={this.state.burgers[key]}
+                  />
+                );
+              })}
+            </ul>
+          </div>
+          <Order
+            deleteFromOrder={this.deleteFromOrder}
+            burgers={this.state.burgers}
+            order={this.state.order}
+          />
+          <MenuAdmin
+            addBurger={this.addBurger}
+            loadSampleBurgers={this.loadSampleBurgers}
+            burgers={this.state.burgers}
+            updateBurger={this.updateBurger}
+            deleteBurger={this.deleteBurger}
+            handleLogOut={this.handleLogOut}
+          />
         </div>
-        <Order
-          deleteFromOrder={this.deleteFromOrder}
-          burgers={this.state.burgers}
-          order={this.state.order}
-        />
-        <MenuAdmin
-          addBurger={this.addBurger}
-          loadSampleBurgers={this.loadSampleBurgers}
-          burgers={this.state.burgers}
-          updateBurger={this.updateBurger}
-          deleteBurger={this.deleteBurger}
-        />
-      </div>
+      </SignIn>
     );
   }
 }
