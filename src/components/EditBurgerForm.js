@@ -42,6 +42,7 @@ class EditBurgerForm extends React.Component {
           value={this.props.burger.price}
         />
         <select
+          onChange={this.handleChange}
           name='status'
           className='status'
           value={this.props.burger.status}
