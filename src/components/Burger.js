@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class burger extends React.Component {
+class Burger extends React.Component {
   static propTypes = {
     details: PropTypes.shape({
       image: PropTypes.string,
@@ -30,7 +30,7 @@ class burger extends React.Component {
           </h3>
           <p>{desc}</p>
           <button
-            className='button-order'
+            className='buttonOrder'
             disabled={!isAvailable}
             onClick={() => this.props.addToOrder(this.props.index)}
           >
@@ -42,4 +42,4 @@ class burger extends React.Component {
   }
 }
 
-export default burger;
+export default Burger;
