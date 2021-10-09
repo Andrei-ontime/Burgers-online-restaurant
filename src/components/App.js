@@ -4,7 +4,7 @@ import Header from './Header';
 import Order from './Order';
 import MenuAdmin from './MenuAdmin';
 import Burger from './Burger';
-import sampleBurges from '../sample-burgers';
+import sampleBurgers from '../sample-burgers';
 import base from '../base';
 import firebase from 'firebase/app';
 import SignIn from './auth/SignIn';
@@ -21,6 +21,7 @@ class App extends React.Component {
 
   componentDidMount() {
     const { params } = this.props.match;
+
     const localStorageRef = localStorage.getItem(params.restaurantId);
     if (localStorageRef) {
       this.setState({ order: JSON.parse(localStorageRef) });
@@ -50,11 +51,11 @@ class App extends React.Component {
     this.setState({ burgers });
   };
 
-  updateBurger = (key, updateBurger) => {
+  updateBurger = (key, updatedBurger) => {
     //1. Делаем копию обьекта state
     const burgers = { ...this.state.burgers };
     //2.Обновляем нужный burger
-    burgers[key] = updateBurger;
+    burgers[key] = updatedBurger;
     //3. Записать наш новый обьект burgers в state
     this.setState({ burgers });
   };
@@ -69,7 +70,7 @@ class App extends React.Component {
   };
 
   loadSampleBurgers = () => {
-    this.setState({ burgers: sampleBurges });
+    this.setState({ burgers: sampleBurgers });
   };
 
   addToOrder = (key) => {
@@ -100,7 +101,7 @@ class App extends React.Component {
       <SignIn>
         <div className='burger-paradise'>
           <div className='menu'>
-            <Header title='Very Hot Burger' amount={10} hot={true} />
+            <Header title='Very Hot Burger' />
             <ul className='burgers'>
               {Object.keys(this.state.burgers).map((key) => {
                 return (

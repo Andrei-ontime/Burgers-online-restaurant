@@ -11,6 +11,7 @@ class AddBurgerForm extends React.Component {
   statusRef = React.createRef();
   descRef = React.createRef();
   imageRef = React.createRef();
+
   createBurger = (event) => {
     event.preventDefault();
     const burger = {
@@ -20,7 +21,6 @@ class AddBurgerForm extends React.Component {
       desc: this.descRef.current.value,
       image: this.imageRef.current.value,
     };
-
     this.props.addBurger(burger);
     event.currentTarget.reset();
   };
@@ -53,10 +53,9 @@ class AddBurgerForm extends React.Component {
           placeholder='Image'
           autoComplete='off'
         />
-        <button type='submit'>Добавить в меню</button>
+        <button type='submit'>+ Добавить в Меню</button>
       </form>
     );
   }
 }
-
 export default AddBurgerForm;
